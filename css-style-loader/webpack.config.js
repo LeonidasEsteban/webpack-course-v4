@@ -13,7 +13,10 @@ module.exports = {
         // test: que tipo de archivo quiero reconocer,
         // use: que loader se va a encargar del archivo
         test: /\.css$/,
-        use: ['style-loader','css-loader'],
+        use: [
+          'style-loader',
+          'css-loader'
+        ],
       }
     ]
   }
