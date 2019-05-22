@@ -1,5 +1,5 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'index.js'),
@@ -14,16 +14,20 @@ module.exports = {
         // test: que tipo de archivo quiero reconocer,
         // use: que loader se va a encargar del archivo
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          // ['style-loader','css-loader']
-          // fallback: 'style-loader',
-          use: "css-loader"
-        }),
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader'
+        ]
       }
     ]
   },
   plugins: [
     // aquí van los plugins
-    new ExtractTextPlugin("css/[name].css"),
+    new MiniCssExtractPlugin({
+      filename:"css/[name].css",
+      chunkFilename: '[id].css',
+    }),
   ]
 }
