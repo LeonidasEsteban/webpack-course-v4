@@ -1,7 +1,10 @@
-import './estilos.css'
-import { firstMessage, delayedMessage } from './message.js';
+import '../css/estilos.css'
 
-document.write(firstMessage)
-delayedMessage();
-// console.log('Hola mundo!, desde Webpack');
-console.log('Hola mundo!, desde Webpack en un webpack.config');
+import React from 'react';
+import { render } from 'react-dom';
+import App from './components/app'
+
+render(<App />, document.getElementById('container'));
+
+
+

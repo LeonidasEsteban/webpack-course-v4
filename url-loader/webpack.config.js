@@ -5,8 +5,10 @@ module.exports = {
   entry: path.resolve(__dirname, 'src/js/index.js'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: 'dist/'
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       // Aquí van los loaders
@@ -18,6 +20,15 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        test: /\.(jpg|png|gif|woff|eot|ttf|svg|mp4|webm)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 90000,
+          }
+        }
+      },
+      {
         test: /\.css$/,
         use: [
           {
@@ -25,16 +36,7 @@ module.exports = {
           },
           'css-loader'
         ]
-      },
-      {
-        test: /\.(jpg|png|gif|woff|eot|ttf|svg|mp4|webm)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 1000000,
-          }
-        }
-      },
+      }
     ]
   },
   plugins: [
