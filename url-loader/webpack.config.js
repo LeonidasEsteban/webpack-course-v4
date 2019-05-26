@@ -7,7 +7,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
-  devtool: 'inline-source-map',
   module: {
     rules: [
       // Aquí van los loaders
@@ -26,7 +25,16 @@ module.exports = {
           },
           'css-loader'
         ]
-      }
+      },
+      {
+        test: /\.(jpg|png|gif|woff|eot|ttf|svg|mp4|webm)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 1000000,
+          }
+        }
+      },
     ]
   },
   plugins: [
