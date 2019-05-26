@@ -7,13 +7,12 @@ const waitTime = new Promise((todoOk, todoMal) => {
   }, 3000)
 })
 
-module.exports = {
-  firstMessage: 'hola mundo desde un módulo',
-  delayedMessage: async () => {
-    const message = await waitTime;
-    console.log(message);
-    // const element = document.createElement('p')
-    // element.textContent = message;
-    renderToDOM(makeMessage(message));
-  },
+
+const firstMessage = 'hola mundo desde un módulo'
+async function delayedMessage() {
+  const message = await waitTime;
+  console.log(message);
+  renderToDOM(makeMessage(message));
 }
+
+export { delayedMessage, firstMessage }
