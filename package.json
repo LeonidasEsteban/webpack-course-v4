@@ -20,7 +20,7 @@
     "build:dll": "webpack --config ./dll/webpack.dll.config.js --mode development",
     "build:preventDuplicationFast": "webpack --config ./dll/webpack.config.js --mode development",
     "build:dynamic:dll": "webpack --config ./dynamic-imports/webpack.dll.config.js --mode development",
-    "build:dynamic": "webpack --config ./dynamic-imports/webpack.config.js --mode development"
+    "build:dynamic": "webpack --config ./dynamic-imports/webpack.config.js --mode development",
   },
   "keywords": [
     "webpack"

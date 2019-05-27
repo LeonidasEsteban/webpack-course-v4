@@ -1,6 +1,4 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -9,8 +7,13 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].js',
-    publicPath: 'http://localhost:3001/',
+    publicPath: 'http://localhost:9000/',
     chunkFilename: 'js/[id].[chunkhash].js',
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+    open: true,
+    port: 9000,
   },
   module: {
     rules: [
@@ -36,24 +39,11 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          // 'css-loader',
+          'style-loader',
           { loader: 'css-loader', options: { importLoaders: 1 } },
           'postcss-loader',
         ]
       },
     ]
   },
-  plugins: [
-    // aquí van los plugins
-    new MiniCssExtractPlugin({
-      filename: "css/[name].css",
-      chunkFilename: 'css/[id].css',
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: require('./modules-manifest.json')
-    })
-  ],
 }
