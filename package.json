@@ -16,7 +16,7 @@
     "build:react": "webpack --config ./react/webpack.config.js --mode development",
     "build:url": "webpack --config ./url-loader/webpack.config.js --mode development",
     "build:prepro": "webpack --config ./prepro/webpack.config.js --mode development",
-    "build:prevent": "webpack --config ./prevent-duplication/webpack.config.js --mode development",
+    "build:preventDuplication": "webpack --config ./prevent-duplication/webpack.config.js --mode development",
     "build:vendor": "webpack --config ./vendor/webpack.config.js --mode development",
     "build:dll": "webpack --config ./dll/webpack.dll.config.js --mode development",
     "build:dll:src": "webpack --config ./dll/webpack.config.js --mode development",
