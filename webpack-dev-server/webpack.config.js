@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -10,6 +11,7 @@ module.exports = {
   devServer: {
     open: true,
     port: 9000,
+    hot: true,
   },
   module: {
     rules: [
@@ -21,5 +23,11 @@ module.exports = {
         use: ['style-loader','css-loader'],
       }
     ]
-  }
+  },
+  plugins: [
+    // new HtmlWebpackPlugin({
+    //   template: './public/index.html',
+    // }),
+    new webpack.HotModuleReplacementPlugin()
+  ]
 }
