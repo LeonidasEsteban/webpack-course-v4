@@ -1,7 +1,13 @@
 import './estilos.css'
-import { firstMessage, delayedMessage } from './message.js';
+import search from './search'
+import render from './render'
 
-document.write(firstMessage)
-delayedMessage();
-// console.log('Hola mundo!, desde Webpack');
-console.log('Hola mundo!, desde Webpack en un webpack.config');
+const id = prompt('quien es ese pokemon?')
+
+search(id)
+  .then((data) => {
+    render(data)
+  })
+  .catch((x) => {
+    console.log('no hubo pokemon :(', x)
+  })
