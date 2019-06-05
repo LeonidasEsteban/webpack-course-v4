@@ -1,4 +1,6 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -14,6 +16,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'dist'),
     open: true,
     port: 9000,
+    hot: true,
   },
   module: {
     rules: [
@@ -28,11 +31,9 @@ module.exports = {
       {
         test: /\.(jpg|png|gif|woff|eot|ttf|svg|mp4|webm)$/,
         use: {
-          loader: 'url-loader',
+          loader: 'file-loader',
           options: {
-            limit: 10000,
-            name: '[hash].[ext]',
-            outputPath: 'assets'
+            outputPath: 'assets/[ext]'
           }
         }
       },
@@ -40,10 +41,15 @@ module.exports = {
         test: /\.css$/,
         use: [
           'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          'postcss-loader',
+          'css-loader'
         ]
       },
     ]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public/index.html'),
+    }),
+    new webpack.HotModuleReplacementPlugin()
+  ]
 }

@@ -1,6 +1,11 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
+const TerserJSPlugin = require('terser-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -8,8 +13,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].js',
-    publicPath: 'http://localhost:3001/',
+    filename: 'js/[name].[hash].js',
+    publicPath: 'http://localhost:3001/', // por las rutas (si navegas no se ven las imágenes)
     chunkFilename: 'js/[id].[chunkhash].js',
   },
   module: {
@@ -46,11 +51,24 @@ module.exports = {
       },
     ]
   },
+  optimization: {
+    minimizer: [new TerserJSPlugin(), new OptimizeCSSAssetsPlugin()],
+  },
   plugins: [
-    // aquí van los plugins
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['**/app.*']
+    }),
     new MiniCssExtractPlugin({
-      filename: "css/[name].css",
-      chunkFilename: 'css/[id].css',
+      filename: "css/[name].[hash].css",
+      chunkFilename: 'css/[id].[hash].css',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public/index.html'),
+    }),
+    new AddAssetHtmlPlugin({
+      filepath: path.resolve(__dirname, 'dist/js/*.dll.js'),
+      outputPath: 'js', // no es absoluto
+      publicPath: 'http://localhost:3001/js'
     }),
     new webpack.DllReferencePlugin({
       manifest: require('./modules-manifest.json')

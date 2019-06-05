@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -9,6 +10,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
     open: true,
     port: 9000,
     hot: true,
@@ -25,9 +27,9 @@ module.exports = {
     ]
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   template: './public/index.html',
-    // }),
+    new HtmlWebpackPlugin({
+      title: 'webpack-dev-server',
+    }),
     new webpack.HotModuleReplacementPlugin()
   ]
 }
